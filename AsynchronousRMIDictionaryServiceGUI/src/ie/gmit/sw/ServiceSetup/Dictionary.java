@@ -1,27 +1,24 @@
 package ie.gmit.sw.ServiceSetup;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Dictionary implements Serializable {
-	
-	
+
 	private static final long serialVersionUID = 1L;
 
 	// dictionary will receive Words and definitions HashMap with ArrayList
 	private Map<String, ArrayList<String>> dictionary = new HashMap<String, ArrayList<String>>();
 
+	private String keyWord;
+
 	public Dictionary() {
-		super();
+
 	}
 
-	public Dictionary(Map<String, ArrayList<String>> dictionary) {
-		super();
-		this.dictionary = dictionary;
+	public Dictionary(String keyWord) {
+		this.keyWord = keyWord;
 	}
-
 
 	public void addDicWord(String word, String definitionWord) {
 		if (dictionary.get(word) == null) {
@@ -35,8 +32,12 @@ public class Dictionary implements Serializable {
 		return dictionary;
 	}
 
-	public void setDictionary(Map<String, ArrayList<String>> dictionary) {
-		this.dictionary = dictionary;
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
 	}
 
 }
