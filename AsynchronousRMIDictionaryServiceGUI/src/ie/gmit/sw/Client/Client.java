@@ -1,4 +1,4 @@
-package com.mkyong.rmiclient;
+package ie.gmit.sw.Client;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -9,15 +9,16 @@ import java.util.NoSuchElementException;
 
 import javax.swing.JOptionPane;
 
-import com.mkyong.rmiinterface.Book;
-import com.mkyong.rmiinterface.RMIInterface;
+import ie.gmit.sw.ServiceSetup.Book;
+import ie.gmit.sw.ServiceSetup.DictionaryServiceInterface;
 
-public class Customer {
-	private static RMIInterface look_up;
+public class Client {
+	private static DictionaryServiceInterface look_up;
 	
 
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
-		look_up = (RMIInterface) Naming.lookup("//localhost/MyBookstore");
+		
+		look_up = (DictionaryServiceInterface) Naming.lookup("//localhost/RMIdictionary");
 		
 		boolean findmore;
 		do{

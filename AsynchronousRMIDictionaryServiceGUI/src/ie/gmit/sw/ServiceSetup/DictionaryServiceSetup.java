@@ -1,4 +1,4 @@
-package com.mkyong.rmiserver;
+package ie.gmit.sw.ServiceSetup;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -8,31 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import com.mkyong.rmiinterface.Book;
-import com.mkyong.rmiinterface.RMIInterface;
 
-public class Bookstore extends UnicastRemoteObject implements RMIInterface{
-	private static final long serialVersionUID = 1L;
-	private List<Book> bookList;
 
-	protected Bookstore(List<Book> list) throws RemoteException {
+public class DictionaryServiceSetup {
+	
+	
+	protected DictionaryServiceSetup() throws RemoteException {
 		super();
-		this.bookList = list;
+		// TODO Auto-generated constructor stub
 	}
-	
-	//The client sends a Book object with the isbn information on it (note: it could be a string with the isbn too)
-	//With this method the server searches in the List bookList for any book that has that isbn and returns the whole object
-	@Override
-	public Book findBook(Book book) throws RemoteException {
-		Predicate<Book> predicate = x-> x.getIsbn().equals(book.getIsbn());
-		return bookList.stream().filter(predicate).findFirst().get();
-		
-	}
-	
-	@Override
-	public List<Book> allBooks() throws RemoteException {
-		return bookList;
-	}
+
 	
 	private static List<Book> initializeList(){
 		List<Book> list = new ArrayList<>();
@@ -46,10 +31,11 @@ public class Bookstore extends UnicastRemoteObject implements RMIInterface{
 	
 	public static void main(String[] args){
         try {
+        	
         	//Start the RMI regstry on port 1099
     		LocateRegistry.createRegistry(1099);
     		
-            Naming.rebind("//localhost/MyBookstore", new Bookstore(initializeList()));
+            Naming.rebind("//localhost/RMIdictionary", new DictionaryServiceImpl(initializeList()));
             System.err.println("Server ready");
         } catch (Exception e) {
             System.err.println("Server exception: " + e.getMessage());

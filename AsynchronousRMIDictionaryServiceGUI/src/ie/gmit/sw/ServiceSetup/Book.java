@@ -1,4 +1,4 @@
-package com.mkyong.rmiinterface;
+package ie.gmit.sw.ServiceSetup;
 
 import java.io.Serializable;
 
