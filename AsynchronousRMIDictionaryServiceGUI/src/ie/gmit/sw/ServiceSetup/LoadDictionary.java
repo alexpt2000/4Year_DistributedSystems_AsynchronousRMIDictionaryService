@@ -30,7 +30,7 @@ public class LoadDictionary {
 				continue;
 			}
 
-			if (wordsKey.length== 1) {
+			if (wordsKey.length == 1) {
 				oldWordKey = wordsKey[0];
 			}
 			// if not, is just definition
