@@ -10,7 +10,7 @@
 
 	<h1>Dictionary Service</h1>
 
-	<form method="post" action="ola">
+	<form method="post" action="dictionaryDefinitions">
 		<table>
 			<tr>
 				<td>

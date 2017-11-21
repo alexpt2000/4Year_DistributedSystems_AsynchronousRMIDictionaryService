@@ -1,5 +1,7 @@
 package ie.gmit.sw.servlet;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -8,18 +10,21 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.servlet4preview.RequestDispatcher;
+
 import ie.gmit.sw.ServiceSetup.DictionaryServiceInterface;
 
 /**
  * Servlet implementation class DictionaryServlet
  */
-@WebServlet("/ola")
+@WebServlet("/dictionaryDefinitions")
 public class DictionaryServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -69,15 +74,29 @@ public class DictionaryServlet extends HttpServlet {
 
 		String keyWord = request.getParameter("keyWord");
 
+		keyWord = keyWord.replaceAll("\\s+","");
+		
 		System.out.println(keyWord.toUpperCase());
 
 		ArrayList<String> responseDefinition = look_up.findDictionary(keyWord.toUpperCase());
 
-		for (String string : responseDefinition) {
-			System.out.print(string);
+		String sendToPage = "";
+
+		if (responseDefinition == null) {
+
+			sendToPage = "Word not found in dictionary.";
+
+		} else {
+
+			for (String string : responseDefinition) {
+				// System.out.print(string);
+				sendToPage += "<br>" + string;
+			}
+
 		}
 
-		response.sendRedirect("index.jsp");
+		request.setAttribute("definitionList", sendToPage);
+		request.getRequestDispatcher("response.jsp").forward(request, response);
 
 	}
 
