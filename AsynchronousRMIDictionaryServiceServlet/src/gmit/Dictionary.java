@@ -4,6 +4,8 @@
 // A Simple Jsp Servlet Login Example in Tomcat and Eclipse
 // https://www.youtube.com/watch?v=D0OfTZuIDcs
 
+package gmit;
+
 import java.io.IOException;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -17,6 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class Dictionary implements Servlet {
+	
+	private static final long serialVersionUID = 102831973239L;
+	
+    public Dictionary(){
+
+    }
 
 	@Override
 	public void destroy() {
