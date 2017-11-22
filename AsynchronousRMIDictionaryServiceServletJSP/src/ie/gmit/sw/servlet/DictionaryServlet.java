@@ -44,7 +44,7 @@ public class DictionaryServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 
-		System.out.println("Stating Server.....");
+		System.out.println("Starting the client.....");
 
 		try {
 			look_up = (DictionaryServiceInterface) Naming.lookup("//localhost/RMIdictionary");
@@ -74,30 +74,28 @@ public class DictionaryServlet extends HttpServlet {
 
 		String keyWord = request.getParameter("keyWord");
 
-		keyWord = keyWord.replaceAll("\\s+","");
-		
+		keyWord = keyWord.toUpperCase().replaceAll("\\s+", "");
+
 		System.out.println(keyWord.toUpperCase());
 
-		ArrayList<String> responseDefinition = look_up.findDictionary(keyWord.toUpperCase());
+		ArrayList<String> responseDefinition = look_up.findDictionary(keyWord);
 
 		String sendToPage = "";
 
 		if (responseDefinition == null) {
 
-			sendToPage = "Word not found in dictionary.";
+			sendToPage = "The word <b>" + keyWord + "</b>, not found in dictionary.";
 
 		} else {
-
+			sendToPage = "<h3>" + keyWord + "</h3>";
 			for (String string : responseDefinition) {
 				// System.out.print(string);
-				sendToPage += "<br>" + string;
+				sendToPage += string + "<br>";
 			}
-
 		}
 
 		request.setAttribute("definitionList", sendToPage);
 		request.getRequestDispatcher("response.jsp").forward(request, response);
-
 	}
 
 }

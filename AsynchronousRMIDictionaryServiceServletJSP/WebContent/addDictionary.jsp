@@ -8,25 +8,19 @@
 </head>
 <body>
 
-	<h1>Dictionary Service</h1>
+	<h1>Add - Dictionary Service</h1>
 
 	<form method="post" action="dictionaryDefinitions">
 		<table>
-			<tr>
-				<td>
-					<input type="text" name="keyWord" placeholder="Enter query here"> 
+
+					<input type="text" name="keyWord" placeholder="Enter the word here"> 
+					<input type="text" name="definition" placeholder="Enter the definition here"> 
 					<input type="submit" value="Submit">
-				</td>
-			</tr>
+
 
 		</table>
 	</form>
 	
-	<div>
-	<input type="button" value="Add" onclick="window.location='addDictionary.jsp'">
-	</div>
-	
-
 
 </body>
 </html>

@@ -13,7 +13,7 @@
 
 	<h1>Dictionary Service</h1>
 	
-	<button onclick="goBack()">New Search</button>
+	<button onclick="goBack()">Make another query</button>
 	<br>
 	<br>
 
