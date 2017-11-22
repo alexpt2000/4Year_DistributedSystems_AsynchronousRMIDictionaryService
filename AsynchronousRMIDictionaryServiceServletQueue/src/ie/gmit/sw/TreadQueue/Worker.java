@@ -4,36 +4,34 @@ import java.rmi.RemoteException;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
-public class Worker implements Runnable{
-	
-	private BlockingQueue<Reference> inQueue;
-	private Map<String, Definitions> outQueue;
-	private Definitions definitions;
+import ie.gmit.sw.ServiceSetup.DictionaryServiceInterface;
 
-	
-	
-	public Worker(BlockingQueue<Reference> inQueue, Map<String, Definitions> outQueue){
+public class Worker implements Runnable {
+
+	private BlockingQueue<Request> inQueue;
+	private Map<String, DictionaryServiceInterface> outQueue;
+	private DictionaryServiceInterface res;
+
+	public Worker(BlockingQueue<Request> inQueue, Map<String, DictionaryServiceInterface> outQueue) {
 		this.inQueue = inQueue;
 		this.outQueue = outQueue;
-		
+
 	}
 
 	@Override
 	public void run() {
-		Reference req = inQueue.poll();
-		
+		Request req = inQueue.poll();
+
 		try {
-			System.out.println("\nChecking Job No: " + req.getJobNumber());
+			System.out.println("\nChecking Status of Task No: " + req.getTaskNumber());
 			Thread.sleep(1000);
-		
-			outQueue.put(req.jobNumber, definitions);
+
+			outQueue.put(req.taskNumber, res);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	
-	
+
 }

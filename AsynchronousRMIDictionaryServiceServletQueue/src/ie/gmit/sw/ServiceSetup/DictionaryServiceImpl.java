@@ -10,6 +10,7 @@ public class DictionaryServiceImpl extends UnicastRemoteObject implements Dictio
 
 	private static final long serialVersionUID = 1L;
 	private Dictionary wordDetail;
+	private boolean processed;
 
 	protected DictionaryServiceImpl(Dictionary list) throws RemoteException {
 		super();
@@ -25,10 +26,11 @@ public class DictionaryServiceImpl extends UnicastRemoteObject implements Dictio
 
 		wordDetailReturn = wordDetail.getDictionary().get(keyWord);
 
-		// System.out.println("Print Definition -> " +
-		// wordDetail.getDictionary().get(keyWord));
-
 		return wordDetailReturn;
+	}
+
+	public boolean isProcessed() throws RemoteException {
+		return processed = true;
 	}
 
 }

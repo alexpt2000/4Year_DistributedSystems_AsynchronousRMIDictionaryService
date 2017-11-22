@@ -25,10 +25,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.servlet4preview.RequestDispatcher;
 
-
 import ie.gmit.sw.ServiceSetup.DictionaryServiceInterface;
-import ie.gmit.sw.TreadQueue.Definitions;
-import ie.gmit.sw.TreadQueue.Reference;
+import ie.gmit.sw.TreadQueue.Request;
+import ie.gmit.sw.TreadQueue.Worker;
+
+
 
 /**
  * Servlet implementation class DictionaryServlet
@@ -37,15 +38,16 @@ import ie.gmit.sw.TreadQueue.Reference;
 public class DictionaryServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
 	private static DictionaryServiceInterface look_up;
+
 	
 	private static long jobNumber = 0;
 	private final int POOL_SIZE = 6;
 	
-	private static Map<String, Definitions> outQueue; 
-	private static BlockingQueue<Reference> inQueue;
-	private static ExecutorService executor ;
+	private static Map<String, DictionaryServiceInterface> outQueue; 
+	private static BlockingQueue<Request> inQueue;
+	private static ExecutorService executor;
+	private boolean checkProcessed;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -60,6 +62,10 @@ public class DictionaryServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 
+		outQueue = new HashMap<String, DictionaryServiceInterface>();
+		inQueue = new LinkedBlockingQueue<Request>();
+		executor = Executors.newFixedThreadPool(POOL_SIZE);
+		
 		System.out.println("Starting the client.....");
 
 		try {
@@ -69,9 +75,11 @@ public class DictionaryServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		outQueue = new HashMap<String, Definitions>();
-		inQueue = new LinkedBlockingQueue<Reference>();
-		executor = Executors.newFixedThreadPool(POOL_SIZE);
+		
+		
+		
+		
+		
 
 	}
 
@@ -102,20 +110,20 @@ public class DictionaryServlet extends HttpServlet {
 		System.out.println(keyWord);
 		
 		
+
 		
-		
-		
+		taskNumber = request.getParameter("frmTaskNumber");
 		
 		if (taskNumber == null){
 			taskNumber = new String("T" + jobNumber);
 			
+			checkProcessed = false;
 
-
-			Reference r = new Reference(jobNumber, keyWord);
+			Request r = new Request(taskNumber, keyWord);
 			inQueue.add(r);
 			
 			
-			Runnable work = new Worker(inQueue, outQueue, service);
+			Runnable work = new Worker(inQueue, outQueue);
 			executor.execute(work);
 			
 			jobNumber++;
@@ -123,7 +131,7 @@ public class DictionaryServlet extends HttpServlet {
 			
 			if (outQueue.containsKey(taskNumber)) {
 				//get the Resultator object from outMap based on tasknumber
-				Resultator outQItem = outQueue.get(taskNumber);
+				DictionaryServiceInterface outQItem = outQueue.get(taskNumber);
 
 				System.out.println("\nChecking Status of Task No:" + taskNumber);
 
@@ -134,20 +142,10 @@ public class DictionaryServlet extends HttpServlet {
 					// Remove the processed item from Map by taskNumber
 					outQueue.remove(taskNumber);
 					//Get the Distance of the Current Task
-					returningDistance = outQItem.getResult();
-
-					System.out.println("\nTask " + taskNumber + " Processed");
-					System.out.println("String (" + str1 + ") and String (" + str2 + ") Distance = " + returningDistance);
-				}
+					
+					System.out.println("\nTask " + taskNumber + " Processed");}
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		

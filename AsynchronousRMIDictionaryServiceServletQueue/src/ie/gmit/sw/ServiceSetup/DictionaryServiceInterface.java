@@ -8,6 +8,7 @@ import java.util.List;
 public interface DictionaryServiceInterface extends Remote {
 	
 	public ArrayList<String> findDictionary(String searchKey) throws RemoteException;
+	public boolean isProcessed() throws RemoteException;
 	
 
 
