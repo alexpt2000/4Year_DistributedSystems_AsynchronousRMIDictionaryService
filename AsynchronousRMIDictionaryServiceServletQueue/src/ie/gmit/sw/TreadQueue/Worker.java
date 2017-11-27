@@ -23,7 +23,7 @@ public class Worker implements Runnable {
 		Request req = inQueue.poll();
 
 		try {
-			System.out.println("\nChecking Status of Task No: " + req.getTaskNumber());
+			System.out.println("\nChecking Status of Task No: " + req.getTaskNumber() + " - " + req.getKeyWord() );
 			Thread.sleep(1000);
 
 			outQueue.put(req.taskNumber, res);

@@ -39,7 +39,6 @@ public class DictionaryServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static DictionaryServiceInterface look_up;
-
 	
 	private static long jobNumber = 0;
 	private final int POOL_SIZE = 6;
@@ -74,12 +73,6 @@ public class DictionaryServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
 
 	}
 
@@ -89,29 +82,11 @@ public class DictionaryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+		String keyWord = "";
+		
 		String taskNumber = request.getParameter("frmTaskNumber");
-		
-		
-		String keyWord = request.getParameter("keyWord");
 
-		keyWord = keyWord.toUpperCase().replaceAll("\\s+", "");
-
-		System.out.println(keyWord);
-		
-		
-
-		
 		taskNumber = request.getParameter("frmTaskNumber");
 		
 		if (taskNumber == null){
@@ -122,14 +97,15 @@ public class DictionaryServlet extends HttpServlet {
 			Request r = new Request(taskNumber, keyWord);
 			inQueue.add(r);
 			
-			
 			Runnable work = new Worker(inQueue, outQueue);
 			executor.execute(work);
 			
 			jobNumber++;
+			
 		} else {
 			
 			if (outQueue.containsKey(taskNumber)) {
+				
 				//get the Resultator object from outMap based on tasknumber
 				DictionaryServiceInterface outQItem = outQueue.get(taskNumber);
 
@@ -148,18 +124,43 @@ public class DictionaryServlet extends HttpServlet {
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		 keyWord = request.getParameter("keyWord");
+		keyWord = keyWord.toUpperCase().replaceAll("\\s+", "");
+		System.out.println(keyWord);
 
+		
+		ArrayList<String> responseDefinition = look_up.findDictionary(keyWord);
+
+		String sendToPage = "";
+
+		if (responseDefinition == null) {
+
+			sendToPage = "The word <b>" + keyWord + "</b>, not found in dictionary.";
+
+		} else {
+			sendToPage = "<h3>" + keyWord + "</h3>";
+			for (String string : responseDefinition) {
+				// System.out.print(string);
+				sendToPage += string + "<br>";
+			}
+		}
+		
+		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String keyWord = request.getParameter("keyWord");
+		keyWord = keyWord.toUpperCase().replaceAll("\\s+", "");
+		System.out.println(keyWord);
+
+		
 		ArrayList<String> responseDefinition = look_up.findDictionary(keyWord);
 
 		String sendToPage = "";

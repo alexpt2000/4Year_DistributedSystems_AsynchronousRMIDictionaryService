@@ -76,7 +76,7 @@ public class DictionaryServlet extends HttpServlet {
 
 		keyWord = keyWord.toUpperCase().replaceAll("\\s+", "");
 
-		System.out.println(keyWord.toUpperCase());
+		System.out.println(keyWord);
 
 		ArrayList<String> responseDefinition = look_up.findDictionary(keyWord);
 
