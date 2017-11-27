@@ -22,12 +22,13 @@ public class ServiceQueue implements Runnable {
 		Words req = inQueue.poll();
 
 		try {
-			System.out.println("\nChecking Status of Task No: " + req.getTaskNumber());
+			//System.out.println("\nChecking Status of Task No: " + req.getTaskNumber());
 			Thread.sleep(500);
 
 			res = strSer.findDefinition(req.getKeyWord());
 
-			System.out.println(req.getKeyWord());
+			//System.out.println(req.getKeyWord());
+			
 			outQueue.put(req.taskNumber, res);
 		} catch (RemoteException | InterruptedException e) {
 			e.printStackTrace();

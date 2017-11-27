@@ -20,6 +20,7 @@ public class Dictionary implements Serializable {
 		this.keyWord = keyWord;
 	}
 
+	
 	public void addDicWord(String word, String definitionWord) {
 		if (dictionary.get(word) == null) {
 			dictionary.put(word, new ArrayList<String>());

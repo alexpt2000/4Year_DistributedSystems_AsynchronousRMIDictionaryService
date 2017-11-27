@@ -1,0 +1,1 @@
+javac src/ie/gmit/sw/*.java 
