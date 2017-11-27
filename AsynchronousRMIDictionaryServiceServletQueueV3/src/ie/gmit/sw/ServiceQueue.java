@@ -26,7 +26,8 @@ public class ServiceQueue implements Runnable {
 			System.out.println("\nChecking Status of Task No: " + req.getTaskNumber());
 			Thread.sleep(1000);
 
-			res = strSer.compare(req.getKeyWord());
+			res = strSer.findDefinition(req.getKeyWord());
+			
 			System.out.println(req.getKeyWord());
 			outQueue.put(req.taskNumber, res);
 		} catch (RemoteException | InterruptedException e) {

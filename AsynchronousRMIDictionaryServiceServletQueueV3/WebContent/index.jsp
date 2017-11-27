@@ -17,7 +17,7 @@
 				
 						
 					<b>Enter the word</b><br>
-					<input type="text" name="keyWord" placeholder="Enter query here"> 
+					<input type="text" name="keyWordIndex" placeholder="Enter query here"> 
 					<p/>
 
 					<input type="submit" value="Submit">

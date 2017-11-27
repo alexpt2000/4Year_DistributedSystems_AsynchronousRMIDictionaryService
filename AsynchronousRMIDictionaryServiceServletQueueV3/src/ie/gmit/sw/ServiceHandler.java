@@ -32,7 +32,7 @@ public class ServiceHandler extends HttpServlet {
 	private static ExecutorService executor ;
 	
 	private boolean checkProcessed;
-	private String returningDistance = "";
+	private String returningDefinitons = "Waiting for response...";
 	
 	public void init() {
 		ServletContext ctx = (ServletContext) getServletContext();
@@ -51,20 +51,19 @@ public class ServiceHandler extends HttpServlet {
 		
 		
 		try {
-			service = (DictionaryService) Naming.lookup("rmi://localhost:1099/AsynchronousRMIDictionaryService");
+			service = (DictionaryService) Naming.lookup("rmi://localhost:1099/RMIdictionary");
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		//Initialise some request varuables with the submitted form info. These are local to this method and thread safe...
-		//String algorithm = req.getParameter("cmbAlgorithm");
-		String keyWord = req.getParameter("keyWord");
-		//String str2 = req.getParameter("txtT");
+		//Request variables 
+		String keyWord = req.getParameter("keyWordIndex");
+		keyWord = keyWord.toUpperCase().replaceAll("\\s+", "");
+		
 		String taskNumber = req.getParameter("frmTaskNumber");
 		
 		
-
 		out.print("<html><head><title>Distributed Systems Assignment</title>");		
 		out.print("</head>");		
 		out.print("<body>");
@@ -74,8 +73,8 @@ public class ServiceHandler extends HttpServlet {
 			
 			checkProcessed = false;
 
-			Words r = new Words(keyWord, taskNumber );
-			inQueue.add(r);
+			Words requestDefinition = new Words(keyWord, taskNumber);
+			inQueue.add(requestDefinition);
 			
 			
 			Runnable work = new ServiceQueue(inQueue, outQueue, service);
@@ -96,11 +95,12 @@ public class ServiceHandler extends HttpServlet {
 				if (checkProcessed == true) {
 					// Remove the processed item from Map by taskNumber
 					outQueue.remove(taskNumber);
-					//Get the Distance of the Current Task
-					returningDistance = outQItem.getResult();
+					
+					//Get the Definitons of the Current Task
+					returningDefinitons = outQItem.getResult();
 
 					System.out.println("\nTask " + taskNumber + " Processed");
-					System.out.println("String " + keyWord + "  - "  + returningDistance);
+					System.out.println("String " + keyWord + "  -  "  + returningDefinitons);
 				}
 			}
 		}
@@ -117,13 +117,13 @@ public class ServiceHandler extends HttpServlet {
 		out.print("<br>Response : " + keyWord);
 
 		
-		if(returningDistance != null){
-			out.print("<br>Response:  " + returningDistance);
+		if(returningDefinitons != null){
+			out.print("<br>Response:  " + returningDefinitons);
 		}
 		
 		
 		out.print("<form name=\"frmRequestDetails\">");
-		out.print("<input name=\"txtS\" type=\"hidden\" value=\"" + keyWord + "\">");
+		out.print("<input name=\"keyWordIndex\" type=\"hidden\" value=\"" + keyWord + "\">");
 		out.print("<input name=\"frmTaskNumber\" type=\"hidden\" value=\"" + taskNumber + "\">");
 		out.print("</form>");								
 		out.print("</body>");	
