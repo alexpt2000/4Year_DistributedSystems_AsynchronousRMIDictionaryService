@@ -5,6 +5,5 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface DictionaryService extends Remote {
-	//public ArrayList<String> findDictionary(String searchKey) throws RemoteException;
-    public Resultator findDefinition(String keyWord) throws RemoteException;
+	public Validator findDefinition(String keyWord) throws RemoteException;
 }

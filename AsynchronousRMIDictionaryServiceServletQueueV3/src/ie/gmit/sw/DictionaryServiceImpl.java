@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class DictionaryServiceImpl extends UnicastRemoteObject implements DictionaryService {
 	private static final long serialVersionUID = 1L;
 	private Dictionary wordDetail;
-	private boolean processed;
 
 	public DictionaryServiceImpl() throws RemoteException {
 		super();
@@ -18,32 +17,15 @@ public class DictionaryServiceImpl extends UnicastRemoteObject implements Dictio
 		this.wordDetail = list;
 	}
 
-//	@Override
-//	public ArrayList<String> findDictionary(String keyWord) {
-//
-//		ArrayList<String> wordDetailReturn = new ArrayList<String>();
-//
-//		System.out.println("Client Request the KeyWord -> " + keyWord);
-//
-//		wordDetailReturn = wordDetail.getDictionary().get(keyWord);
-//
-//		return wordDetailReturn;
-//	}
-//
-//	public boolean isProcessed() throws RemoteException {
-//		return processed = true;
-//	}
+	public Validator findDefinition(String keyWord) throws RemoteException {
 
-	public Resultator findDefinition(String keyWord) throws RemoteException {
-		
 		String sendToPage;
-		
-		Resultator resultDefinition = new ResultatorIMPL();
+
+		Validator resultDefinition = new ValidatorImp();
 		ArrayList<String> wordDetailReturn = new ArrayList<String>();
-		
+
 		wordDetailReturn = wordDetail.getDictionary().get(keyWord);
-		
-		
+
 		if (wordDetailReturn == null) {
 
 			sendToPage = "The word <b>" + keyWord + "</b>, not found in dictionary.";
@@ -54,7 +36,7 @@ public class DictionaryServiceImpl extends UnicastRemoteObject implements Dictio
 				sendToPage += string + "<br>";
 			}
 		}
-		
+
 		resultDefinition.setResult(sendToPage);
 
 		resultDefinition.setProcessed();

@@ -3,13 +3,13 @@ package ie.gmit.sw;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class ResultatorIMPL extends UnicastRemoteObject implements Resultator {
+public class ValidatorImp extends UnicastRemoteObject implements Validator {
 
 	private static final long serialVersionUID = 1L;
 	private boolean processed;
 	private String result;
 
-	ResultatorIMPL() throws RemoteException {
+	ValidatorImp() throws RemoteException {
 		super();
 	}
 
