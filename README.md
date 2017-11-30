@@ -33,9 +33,7 @@ java -cp dictionary-service.jar ie.gmit.sw.ServiceSetup
 ```
 jar –cf job-server.war *
 ```
-### 2. COPY THE WAR FILE TO THE 
-###    "C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps" 
-###    FOLDER, AND START TOMCAT8.
+### 2. COPY THE WAR FILE TO THE "C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps"  FOLDER, AND START TOMCAT8.
 
 
 
