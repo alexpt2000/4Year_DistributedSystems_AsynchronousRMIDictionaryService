@@ -1,12 +1,11 @@
 package ie.gmit.sw;
 
-//import ie.gmit.sw;
-
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 
 public class ServiceSetup {
 
+	
 	static LoadDictionary loadDictionary;
 
 	public static void main(String[] args) {

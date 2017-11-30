@@ -3,6 +3,7 @@ package ie.gmit.sw;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+// Bean Validator
 public class ValidatorImp extends UnicastRemoteObject implements Validator {
 
 	private static final long serialVersionUID = 1L;

@@ -17,6 +17,7 @@ public class ServiceQueue implements Runnable {
 		this.strSer = strSer;
 	}
 
+	// Thread Pool
 	@Override
 	public void run() {
 		Words req = inQueue.poll();

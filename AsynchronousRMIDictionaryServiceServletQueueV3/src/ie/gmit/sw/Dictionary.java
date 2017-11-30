@@ -20,7 +20,8 @@ public class Dictionary implements Serializable {
 		this.keyWord = keyWord;
 	}
 
-	
+	// Add words in Dictionary, if the not exist will add a new word, if yes just
+	// definition will be add
 	public void addDicWord(String word, String definitionWord) {
 		if (dictionary.get(word) == null) {
 			dictionary.put(word, new ArrayList<String>());
@@ -29,6 +30,7 @@ public class Dictionary implements Serializable {
 		dictionary.get(word).add("\n" + definitionWord);
 	}
 
+	// Gets and Sets
 	public Map<String, ArrayList<String>> getDictionary() {
 		return dictionary;
 	}

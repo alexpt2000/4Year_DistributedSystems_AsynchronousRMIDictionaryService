@@ -28,6 +28,7 @@ public class LoadDictionary {
 				continue;
 			}
 
+			// Select the first word in line
 			if (wordsKey.length == 1) {
 				oldWordKey = wordsKey[0];
 			}

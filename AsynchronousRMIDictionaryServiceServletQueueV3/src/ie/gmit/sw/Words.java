@@ -1,5 +1,6 @@
 package ie.gmit.sw;
 
+//Bean words
 public class Words {
 	String keyWord;
 	String taskNumber;
