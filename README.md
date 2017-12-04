@@ -1,8 +1,5 @@
 # 4Year Distributed Systems  
 ## Asynchronous RMI Dictionary Service
-Alexander Souza 
-- G00317835@gmit.ie
-- alexpt2000@gmail.com
 
 ### Overview
 A JSP page should provide users with the ability to specify a string which will be checked against the dictionary. The HTML form information should be dispatched to a servlet that adds the client request to an in-queue and then returns a job ID to the web client. The web client should poll the web server periodically (every 10 seconds) and query if the request has been processed. Client requests in the inQueue should be periodically removed and processed (every 10 seconds).
@@ -60,13 +57,12 @@ Into de folder "WebContent":
 jar –cf job-server.war *
 ```
 
-## Author
-
+# Author
 ### Alexander Souza
 - G00317835@gmit.ie
 - alexpt2000@gmail.com
-- github.com/alexpt2000gmit
-- github.com/alexpt2000
+- https://github.com/alexpt2000gmit
+- https://github.com/alexpt2000
 - www.linkedin.com/in/alexander-souza-3a841539/
 
 
