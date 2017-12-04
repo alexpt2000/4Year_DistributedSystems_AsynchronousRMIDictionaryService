@@ -1,6 +1,16 @@
-4Year Distributed Systems  
+﻿4Year Distributed Systems  
 Asynchronous RMI Dictionary Service
 ----------------------------------------------------------------------------------------
+
+GitHub
+------
+https://github.com/alexpt2000gmit/4Year_DistributedSystems_AsynchronousRMIDictionaryService
+
+
+Application deployed on Amazon
+------------------------------
+http://54.210.4.37:8080/job-server/
+
 
 Overview
 --------
@@ -52,6 +62,14 @@ Into de folder "WebContent":
 
 
 
-
+Author
+--------------------------------------------------
+    Alexander Souza
+    
+        - G00317835@gmit.ie
+        - alexpt2000@gmail.com
+        - https://github.com/alexpt2000gmit
+        - https://github.com/alexpt2000
+        - www.linkedin.com/in/alexander-souza-3a841539/
 
 
